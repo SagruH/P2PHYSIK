@@ -38,3 +38,26 @@ def lineareRegression(x,y):
 fehler rechung mit uncertainties
 variable = uc.float(wert, fehler)
 '''
+
+def minmaxfind(a):
+    #findet hoch und tiefpunkte, geht davon aus das zuerst ein Hochpunkt kommt
+    #kann mit HP /TP im ersten bzw letzten wert nicht richtig umgehen
+    HP = np.array([])
+    TP = np.array([])
+    l = len(a)
+    j = a[0]
+    HPisNext = 1
+    for k in np.arange(1,l):
+        i=a[k]
+        if HPisNext == 1:
+            if j>i:
+                HP = np.hstack((HP,k-1))
+                HPisNext=0
+        elif HPisNext == 0:
+            if j<i:
+                TP = np.hstack((TP,k-1))
+                HPisNext=1
+        j=a[k]
+    HP=np.int_(HP)
+    TP=np.int_(TP)
+    return HP,TP;
