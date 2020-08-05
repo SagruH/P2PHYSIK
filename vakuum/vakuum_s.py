@@ -24,6 +24,7 @@ def loadCSV(name,hlines=1,split=3): #liest eine , getrennte CSV ein und teilt in
 
 def aufgabe2():
     t,p1,p2 = loadCSV("2aDaten.csv")
+    print(t,p1,p2)
 
 
 
