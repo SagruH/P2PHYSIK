@@ -69,14 +69,39 @@ def aufgabe3():
     p0 = 1000 #mbar
     V = 10.1 #l
     S = -1*np.log(p/p0)*(V/t)
+    Sq = np.array(S[8:25])
+    Sm = np.mean(Sq)
+    print("Mittelwert von S", Sm)
 
-    plt.plot(p,S,"-r",label="P1")
+    plt.plot(p,S,"or")
+    plt.xscale("log")
     plt.legend()
     plt.xlabel("p in mbar")
     plt.ylabel("S in l/s")
     plt.grid(True)
     plt.show()
+    return;
 
+def aufgabe4():
+    p,t = loadCSV2("Vakuum_A4.csv")
+    p0 = 1000
+    V = 10.1
+    pln = np.log(p/p0)
+    pln = np.array(pln[5:])
+    t = np.array(t[5:])
+    pf = np.array(pln[:15])
+    tf = np.array(t[:15])
+
+    slope, intercept, r_value, p_value, std_err = stats.linregress(tf, pf)
+    S = slope*V
+    print("S  ", S)
+
+    plt.plot(t,pln,"or")
+    plt.plot(tf,slope*tf+intercept,"-b")
+    plt.xlabel("t in s")
+    plt.ylabel("ln(p/p0)")
+    plt.grid(True)
+    plt.show()
 
     return;
 
@@ -93,5 +118,4 @@ def aufgabe3():
 
 
 
-
-aufgabe3()
+aufgabe4()
