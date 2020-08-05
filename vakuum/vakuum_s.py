@@ -21,6 +21,13 @@ def loadCSV(name,hlines=1,split=3): #liest eine , getrennte CSV ein und teilt in
     b = b[0]
     c = c[0]
     return a,b,c;
+def loadCSV2(name,hlines=1,split=2): #liest eine , getrennte CSV ein und teilt in arrays nach spalten
+    hlines, data = ppk.readCSV(name,hlines)
+    data = np.array(data)
+    a,b=np.split(data,split)
+    a = a[0] # anpassen nach split
+    b = b[0]
+    return a,b;
 
 def aufgabe2():
     t,p1,p2 = loadCSV("2aDaten.csv")
@@ -55,11 +62,36 @@ def aufgabe2():
     plt.ylabel("-ln(p/p0)")
     plt.grid(True)
     plt.show()
-
     return;
 
 def aufgabe3():
-    t,p1,p2 = loadCSV("3aDaten.csv",1,2)
+    t,p = loadCSV2("3aDaten.csv")
+    p0 = 1000 #mbar
+    V = 10.1 #l
+    S = -1*np.log(p/p0)*(V/t)
+
+    plt.plot(p,S,"-r",label="P1")
+    plt.legend()
+    plt.xlabel("p in mbar")
+    plt.ylabel("S in l/s")
+    plt.grid(True)
+    plt.show()
 
 
     return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+aufgabe3()
