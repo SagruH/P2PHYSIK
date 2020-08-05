@@ -102,9 +102,26 @@ def aufgabe4():
     plt.ylabel("ln(p/p0)")
     plt.grid(True)
     plt.show()
-
     return;
 
+def aufgabe5():
+    p = np.array([4.3,8.8,13.5,19,24.7,30.9,37.5,45.7,52,63.6,75.2,83.6])
+    p = p/1000
+    n = np.arange(0,len(p))
+    p0 = 1
+
+    slope, intercept, r_value, p_value, std_err = stats.linregress(p, n*p0)
+    print("epsilon = ", slope
+    )
+    plt.plot(p,n*p0,"or")
+    plt.plot(p,slope*p+intercept,"-b")
+    plt.xlabel("p in bar")
+    plt.ylabel("n*p0 in bar")
+    plt.grid(True)
+    plt.show()
+    return;
+
+    
 
 
 
@@ -118,4 +135,5 @@ def aufgabe4():
 
 
 
-aufgabe4()
+
+aufgabe6()
