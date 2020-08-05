@@ -20,13 +20,14 @@ def loadCSV(name,hlines=1,split=3): #liest eine , getrennte CSV ein und teilt in
     a = a[0] # anpassen nach split
     b = b[0]
     c = c[0]
-    return a,b;
+    return a,b,c;
 
 def aufgabe2():
     t,p1,p2 = loadCSV("2aDaten.csv")
-    print(t,p1,p2)
 
 
 
 
     return;
+
+aufgabe2()
