@@ -58,4 +58,8 @@ def aufgabe2():
 
     return;
 
-aufgabe2()
+def aufgabe3():
+    t,p1,p2 = loadCSV("3aDaten.csv",1,2)
+
+
+    return;
