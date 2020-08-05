@@ -121,7 +121,21 @@ def aufgabe5():
     plt.show()
     return;
 
-    
+def aufgabe6():
+    p,U = loadCSV2("6aDaten.csv")
+    U=U/1000
+
+    plt.plot(p,U,"xr")
+    plt.plot(p,U,"-r")
+    plt.ylabel("U in kV")
+    plt.xlabel("p in mbar")
+    plt.xscale("log")
+    plt.grid(True)
+    plt.show()
+
+
+
+    return;
 
 
 
