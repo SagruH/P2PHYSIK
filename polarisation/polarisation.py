@@ -32,13 +32,24 @@ def main():
     ae50, ue50 = loadCSV("datenelip50.csv")
     ae60, ue60 = loadCSV("datenelip60.csv")
 
+    lam = 632.5 * 10**(-9)
+    d1 = 47.5 * 10 **(-6)
+    d2 = 60 * 10 **(-6)
+
+    T1 = 0.01
+    T2 = 0.22
+    L1 = 1.41
+    L2 = 2.8
+
+    n1 = (lam/(np.pi*d1))*np.arctan(np.sqrt(L1/T1))
+    n2 = (lam/(np.pi*d2))*np.arctan(np.sqrt(L2/T2))
+
+    print(n1, n2)
+
     angel = np.array([almFF,aloFF,acir,ae50,ae60])
     volt = np.array([ulmFF,uloFF,ucir,ue50,ue60])
-    for x in [0,1,2,3,4]:
-        polplots(angel[x],volt[x])
-
-
-
+    #for x in [0,1,2,3,4]: plots
+        #polplots(angel[x],volt[x])
     return;
 
 main()
