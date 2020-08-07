@@ -34,7 +34,8 @@ def main():
 
     angel = np.array([almFF,aloFF,acir,ae50,ae60])
     volt = np.array([ulmFF,uloFF,ucir,ue50,ue60])
-    polplots(angel[0],volt[0])
+    for x in [0,1,2,3,4]:
+        polplots(angel[x],volt[x])
 
 
 
