@@ -82,6 +82,15 @@ def aufgabe3():
 
     return;
 
+def aufgabe4():
+    T, h = loadCSV("aufgabe4gase.csv",1)
+    TRaum = 25.4
+    Toffset = -273.15
+    hRr = 21.93
+    hRl = 36.15
 
 
-aufgabe3()
+
+    return;
+
+aufgabe4()
