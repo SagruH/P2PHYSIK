@@ -36,11 +36,32 @@ def aufgabe1():
     alpha = alpha1 + (p2/p1)*gamma
     tmin = -1/alpha
 
-    print(tmin)
+    print(p1,p2,alpha1,alpha,tmin)
+    return;
 
+def kappa(h1,h2):
+    return (h1/(h1-h2))
 
+def aufgabe2():
+    #immer linke Messwerte
+    #richtig
+    h1r = uc.ufloat(27.7,0.05) - uc.ufloat(10.4,0.05)
+    h2r = uc.ufloat(21.2,0.05) - uc.ufloat(17.0,0.05)
+    #langsam
+    h1l = uc.ufloat(26.2,0.05) - uc.ufloat(12.0,0.05)
+    h2l = uc.ufloat(20.7,0.05) - uc.ufloat(17.6,0.05)
+    #unvollständig
+    h1u = uc.ufloat(28.4,0.05) - uc.ufloat(9.7,0.05)
+    h2u = uc.ufloat(23.7,0.05) - uc.ufloat(14.7,0.05)
 
+    kr = kappa(h1r,h2r)
+    kl = kappa(h1l,h2l)
+    ku = kappa(h1u,h2u)
+
+    print(kr,kl,ku)
 
     return;
 
-aufgabe1()
+
+
+aufgabe2()
