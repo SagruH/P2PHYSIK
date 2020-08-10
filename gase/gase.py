@@ -62,6 +62,26 @@ def aufgabe2():
 
     return;
 
+def aufgabe3():
+    n = 5
+    T = np.array([5.69, 5.68, 5.62, 5.55, 5.34]) / n
+    mK = uc.ufloat(16.68,(16.68*0.001)) / 1000
+    At = np.pi*(16e-3/2)**2
+    A = uc.ufloat(At,(0.005*At))
+    pRaum = uc.ufloat(996,0.5) * 100 #pa
+    V = uc.ufloat(10.58,(10.58*0.005)) /1000
+
+    Tm = np.mean(T)
+    Tstd = np.sqrt(np.var(T))
+    T = uc.ufloat(Tm,Tstd)
+
+    k1 = ( (2*np.pi)**2 ) / ( T**2 )
+    k2 = (mK*V) / (pRaum * A**2)
+    kappa = k1*k2
+    print(kappa)
+
+    return;
 
 
-aufgabe2()
+
+aufgabe3()
