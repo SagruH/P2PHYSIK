@@ -84,10 +84,46 @@ def aufgabe3():
 
 def aufgabe4():
     T, h = loadCSV("aufgabe4gase.csv",1)
-    TRaum = 25.4
-    Toffset = -273.15
-    hRr = 21.93
-    hRl = 36.15
+
+    pRaum = 996 * 100 #Pa
+    TRaum = 25.4 #C
+    Toffset = 273.15 #K
+    hRr = 21.93 #cm
+    hRl = 36.15 #cm
+    g = 9.81
+    rhoHG = 13546 #kg/m^3
+    Drl = (36.15 - 21.93)/100 #m
+    R = 8.314
+
+    T += Toffset #K
+    TRaum += Toffset #K
+    h /= 100
+    hn = 36.15/100 - h
+    dh = Drl - 2*hn
+    p = rhoHG*g*dh
+
+    edRT = 1/(R*T) * 1000
+    lnp = np.log(p/pRaum)
+    slope, intercept, r_value, p_value, std_err = stats.linregress(edRT, lnp)
+    print(slope,intercept)
+
+    #plot Messdaten
+    plt.plot(T,p,"or")
+    plt.title("Messdaten")
+    plt.ylabel("p in Pa")
+    plt.xlabel("T in K")
+    plt.grid(True)
+    #plt.show()
+    plt.clf()
+
+    plt.plot(edRT,lnp,"or")
+    plt.plot(edRT, edRT*slope+intercept , "-r")
+    plt.ylabel("ln(p/p0)")
+    plt.xlabel("1/RT in mol/kJ")
+    plt.grid(True)
+    plt.show()
+
+
 
 
 
