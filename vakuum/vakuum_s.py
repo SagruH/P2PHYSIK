@@ -89,8 +89,8 @@ def aufgabe4():
     pln = np.log(p/p0)
     pln = np.array(pln[5:])
     t = np.array(t[5:])
-    pf = np.array(pln[:15])
-    tf = np.array(t[:15])
+    pf = np.array(pln[16:24])
+    tf = np.array(t[16:24])
 
     slope, intercept, r_value, p_value, std_err = stats.linregress(tf, pf)
     S = slope*V
@@ -139,15 +139,4 @@ def aufgabe6():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-aufgabe6()
+aufgabe4()
