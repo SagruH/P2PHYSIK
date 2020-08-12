@@ -13,33 +13,6 @@ from scipy.interpolate import make_interp_spline, BSpline
 import uncertainties as uc
 from uncertainties.umath import sqrt
 
-def plot(data,i):
-    t  = data[i][0]
-    UA = data[i][1]
-    U2 = data[i][2]
-
-    tnew = np.linspace(t[0],t[-1],250)
-    spl = make_interp_spline(t,UA,k=3)
-    UAspl = spl(tnew)
-    print(spl)
-
-    HP,TP = minmaxfind(UAspl)
-    print(tnew[HP])
-
-
-    plt.plot(tnew,UAspl,"-b", Label = "fit")
-    #plt.plot(t, U2, "-b", label= "U2")
-    plt.plot(t, UA, "-r", label= "Franck-Hertz-Kurve")
-    plt.legend()
-    plt.xlabel("t in s")
-    plt.ylabel("U in V")
-    plt.grid(True)
-    plt.show()
-    return;
-
-def spline(data,i):
-    return;
-
 def loadCSV3(name,hlines=1,split=2): #liest eine , getrennte CSV ein und teilt in arrays nach spalten
     hlines, data = ppk.readCSV(name,hlines)
     data = np.array(data)
@@ -72,6 +45,36 @@ def minmaxfind(a):
     TP=np.int_(TP)
     return HP,TP;
 
+def plot(splines, i):
+    IAspl = splines[2*i]
+    U2 = splines[2*i+1]
+    IA = IAspl(U2)
+
+    plt.plot(U2, IA, "-r", label= "Franck-Hertz-Kurve")
+    plt.legend()
+    plt.xlabel("Beschleunigungsspannung U2 in V")
+    plt.ylabel("Annodenstrom IA in nA")
+    plt.grid(True)
+    plt.show()
+    return;
+
+def spline_it(data,n):
+    splx = np.array([])
+    for i in np.arange(n):
+        t  = data[i][0]
+        IA = data[i][1]
+        U2 = data[i][2]
+
+        U2new = np.linspace(U2[0],U2[-1],300)
+        spl = make_interp_spline(U2,IA,k=3)
+
+        pair = np.array([spl,U2new])
+        splx = np.hstack((splx,pair))
+
+    return splx;
+
+
+
 def aufgabe1_2():
     #load parameters aufgabe 1.2
     #Temp in °C, U1 in V, U3 in V, Uf in V
@@ -84,9 +87,13 @@ def aufgabe1_2():
     hlines, d120 = ppk.readCSV("12aufgabe_120.csv",3)
     dcsv = [d160,d150,d140,d120]
 
+    splx = spline_it(dcsv,4)
 
-    HP,TP = minmaxfind(dcsv[0][1])
-    plot(dcsv,0)
+    for i in np.arange(4):
+        plot(splx,i)
+
+    #plt.plot(dcsv[0][0],dcsv[0][2])
+    #plt.show()
 
 
     return;
