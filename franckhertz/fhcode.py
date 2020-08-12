@@ -65,8 +65,8 @@ def spline_it(data,n):
         IA = data[i][1]
         U2 = data[i][2]
 
-        U2new = np.linspace(U2[0],U2[-1],300)
-        spl = make_interp_spline(U2,IA,k=3)
+        U2new = np.linspace(U2[0],U2[-1],100)
+        spl = make_interp_spline(U2,IA,k=5)
 
         pair = np.array([spl,U2new])
         splx = np.hstack((splx,pair))
@@ -89,12 +89,31 @@ def aufgabe1_2():
 
     splx = spline_it(dcsv,4)
 
+    HP160, TP = minmaxfind( splx[0]( splx[1] ) )
+    HP150, TP = minmaxfind( splx[2]( splx[3] ) )
+    HP140, TP = minmaxfind( splx[4]( splx[5] ) )
+    HP120, TP = minmaxfind( splx[6]( splx[7] ) )
+
+    #korrekturen
+    HP140 = np.delete(HP140,0)
+    HP120 = np.delete(HP120, [0,1,2])
+    HP = [HP160, HP150, HP140, HP120]
+    i = 0
+    while i < 4:
+        U1 = data[1][i]
+        U2 = splx[2*i+1]
+        peaks = HP[i]
+        pc = len(peaks)
+
+
+
+        i += 1
+        pass
+
+    '''
     for i in np.arange(4):
         plot(splx,i)
-
-    #plt.plot(dcsv[0][0],dcsv[0][2])
-    #plt.show()
-
+    '''
 
     return;
 
