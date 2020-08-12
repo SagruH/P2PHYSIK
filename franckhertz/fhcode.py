@@ -37,7 +37,7 @@ def aufgabe1_2():
     hlines, data = ppk.readCSV("Aufgabe1.csv",1)
     #load data
     #t,UA,U2
-    hlines, d160 = ppk.readCSV("12aufgabe_160.csv",3)
+    hlines, d160 = ppk.readCSV("12aufgabe_120.csv",3)
     plt.plot(d160[0], d160[2], "-b", label= "U2")
     plt.plot(d160[0], d160[1], "-r", label= "Franck-Hertz-Kurve")
     plt.legend()
