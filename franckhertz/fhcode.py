@@ -98,7 +98,7 @@ def aufgabe1_2():
     HP140 = np.delete(HP140,0)
     HP120 = np.delete(HP120, [0,1,2])
     HP = [HP160, HP150, HP140, HP120]
-    
+
     #berechungen
     i = 0
     while i < 4:
@@ -126,7 +126,23 @@ def aufgabe1_2():
     return;
 
 def aufgabe1_3():
+    U1 = 2.3    #V
+    Uf = 6.0    #V
+    U3 = 0.91   #V
+    T  = 150     #°C
+    #U2 in V, Ig2 in myA
+    hlines, data = ppk.readCSV("Aufgabe1_3.csv",2)
+    data[0] = data[0]**(3/2)
 
+    slope, intercept, r_value, p_value, std_err = stats.linregress(data[0][:15], data[1][:15]);
+    print(slope)
+
+    plt.plot(data[0],data[1],"ob")
+    plt.plot(data[0][:15], slope*data[0][:15] + intercept, "-r")
+    plt.xlabel("Spannung U2^(3/2) in V^(3/2)")
+    plt.ylabel("Anodenstrom I in \u039CA")
+    plt.grid(True)
+    plt.show()
     return;
 
 
