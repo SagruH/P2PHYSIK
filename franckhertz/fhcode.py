@@ -101,6 +101,7 @@ def aufgabe1_2():
 
     #berechungen
     i = 0
+    UKm = np.array([])
     while i < 4:
         U1 = data[1][i]
         U2 = splx[2*i+1]
@@ -115,10 +116,12 @@ def aufgabe1_2():
             DeltaU = np.hstack((DeltaU, temp))
         DUm = np.mean(DeltaU)
         UK = UDach - DUm
+        UKm = np.hstack((UKm, UK))
         print(i, DUm, UK, "\n")
         i += 1
         pass
-
+    UKm = np.mean(UKm)
+    print(UKm)
     '''
     for i in np.arange(4):
         plot(splx,i)
@@ -145,5 +148,41 @@ def aufgabe1_3():
     plt.show()
     return;
 
+def aufgabe1_4a():
+    UK = 2.57   #V
+    U1 = 2.3    #V
+    Uf = 6.0    #V
+    U3 = 0.91   #V
+    T  = 120     #°C
+    #U2 in V, Ig2 in A
+    hlines, data = ppk.readCSV("Aufgabe1_4a.csv",2)
+    data[0] = data[0] - UK
 
-aufgabe1_3()
+    slb, intb, r, p, std = stats.linregress(data[0][:6], data[1][:6]);
+    slr, intr, r, p, std = stats.linregress(data[0][6:12], data[1][6:12]);
+
+    pb = np.poly1d([slb,intb])
+    pr = np.poly1d([slr,intr])
+    xb = np.linspace(-3,12,50)
+    xr = np.linspace(8,20,50)
+
+    x0 = np.roots((pb-pr))
+    print(x0)
+
+    plt.plot(data[0][0:6],data[1][0:6],"ob")
+    plt.plot(xb,pb(xb),"-b")
+
+    plt.plot(data[0][6:12],data[1][6:12],"or")
+    plt.plot(xr,pr(xr),"-r")
+
+    plt.plot(x0,pb(x0),"xk")
+    plt.plot(data[0][12:],data[1][12:],"og")
+
+    plt.xlabel("U2 in V")
+    plt.ylabel("Anodenstrom I in A")
+    plt.grid(True)
+    plt.show()
+    return;
+
+
+aufgabe1_4a()
