@@ -13,6 +13,8 @@ from scipy.interpolate import make_interp_spline, BSpline
 import uncertainties as uc
 from uncertainties.umath import sqrt
 
+UK = 2.57   #V
+
 def loadCSV3(name,hlines=1,split=2): #liest eine , getrennte CSV ein und teilt in arrays nach spalten
     hlines, data = ppk.readCSV(name,hlines)
     data = np.array(data)
@@ -149,7 +151,6 @@ def aufgabe1_3():
     return;
 
 def aufgabe1_4a():
-    UK = 2.57   #V
     U1 = 2.3    #V
     Uf = 6.0    #V
     U3 = 0.91   #V
@@ -185,16 +186,40 @@ def aufgabe1_4a():
     return;
 
 def aufgabe1_4b():
-    UK = 2.57   #V
     #t,UA,U2
     hlines, data = ppk.readCSV("14baufgabe.csv",3)
+    data[2] = data[2] - UK
 
     plt.plot(data[2], data[1], "-r")
     plt.xlabel("U2 in V")
-    plt.ylabel("Spannung Auffänger A in V")
+    plt.ylabel("UA in V")
     plt.grid(True)
     plt.show()
     return;
 
+def aufgabe2():
+    #t,UA,U2
+    hlines, data = ppk.readCSV("2aufgabe.csv",3)
+    data[2] = data[2] - UK
+    U2 = data[2]
+    UA = data[1]
+
+    U2new = np.linspace(U2[0],U2[-1],100)
+    spl = make_interp_spline(U2,UA,k=5)
+
+    HP,TP = minmaxfind(spl(U2new))
+    HP = np.delete(HP,[0,1,2,3])
+    print(U2new[HP])
+
+    for i in HP:
+        plt.axvline( U2new[i], 0, 12 )
+    plt.plot(U2new, spl(U2new), "-r")
+    plt.xlabel("U2 in V")
+    plt.ylabel("UA in V")
+    plt.grid(True)
+    plt.show()
+
+    return;
 
 aufgabe1_4b()
+aufgabe2()
