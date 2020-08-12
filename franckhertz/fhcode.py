@@ -98,6 +98,8 @@ def aufgabe1_2():
     HP140 = np.delete(HP140,0)
     HP120 = np.delete(HP120, [0,1,2])
     HP = [HP160, HP150, HP140, HP120]
+    
+    #berechungen
     i = 0
     while i < 4:
         U1 = data[1][i]
@@ -105,8 +107,15 @@ def aufgabe1_2():
         peaks = HP[i]
         pc = len(peaks)
 
+        UDach = U2[peaks[0]] + U1
+        DeltaU = np.array([])
 
-
+        for j in np.arange(1,pc-1):
+            temp = U2[peaks[j]] - U2[peaks[j-1]]
+            DeltaU = np.hstack((DeltaU, temp))
+        DUm = np.mean(DeltaU)
+        UK = UDach - DUm
+        print(i, DUm, UK, "\n")
         i += 1
         pass
 
@@ -114,8 +123,11 @@ def aufgabe1_2():
     for i in np.arange(4):
         plot(splx,i)
     '''
+    return;
+
+def aufgabe1_3():
 
     return;
 
 
-aufgabe1_2()
+aufgabe1_3()
