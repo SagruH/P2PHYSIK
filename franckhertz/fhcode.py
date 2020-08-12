@@ -184,5 +184,17 @@ def aufgabe1_4a():
     plt.show()
     return;
 
+def aufgabe1_4b():
+    UK = 2.57   #V
+    #t,UA,U2
+    hlines, data = ppk.readCSV("14baufgabe.csv",3)
 
-aufgabe1_4a()
+    plt.plot(data[2], data[1], "-r")
+    plt.xlabel("U2 in V")
+    plt.ylabel("Spannung Auffänger A in V")
+    plt.grid(True)
+    plt.show()
+    return;
+
+
+aufgabe1_4b()
