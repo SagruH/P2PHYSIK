@@ -200,7 +200,7 @@ def aufgabe1_4b():
 def aufgabe2():
     #t,UA,U2
     hlines, data = ppk.readCSV("2aufgabe.csv",3)
-    data[2] = data[2] - UK
+    data[2] = data[2] - UK + 0.5
     U2 = data[2]
     UA = data[1]
 
@@ -221,5 +221,4 @@ def aufgabe2():
 
     return;
 
-aufgabe1_4b()
 aufgabe2()
