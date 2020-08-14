@@ -32,7 +32,6 @@ def aufgabe11():
         data[0][i] = uc.ufloat(data[0][i],0)
     '''
 
-    lGk = data[0]*lambdaGelb
     rsq = ( ( (data[1]-data[2])/2 ) * (10**(-3)) )**2
     R = (rsq)/(data[0]*lambdaGelb)
     R = uc.ufloat( np.mean(R), np.std(R) )
@@ -55,15 +54,20 @@ def aufgabe11():
     return;
 
 def aufgabe12():
+    lambdaGelb = 590e-9
+    R = 0.701
     hlines, data = ppk.readCSV("12aufgabe.csv",2)
+    rsq = ( ( (data[1]-data[2])/2 ) * (10**(-3)) )**2
+    lGk = data[0]*lambdaGelb*R
 
+    slp, inter, r_value, p_value, std_err = stats.linregress(lGk, rsq);
+    R2 = uc.ufloat(1/slp, std_err)
+    print(R2)
+    return;
 
-
-
-
+def aufgabe134():
 
 
     return;
 
-
-aufgabe12()
+aufgabe134()
