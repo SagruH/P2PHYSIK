@@ -46,13 +46,16 @@ def aufgabe2():
     #immer linke Messwerte
     #richtig
     h1r = uc.ufloat(27.7,0.05) - uc.ufloat(10.4,0.05)
-    h2r = uc.ufloat(21.2,0.05) - uc.ufloat(17.0,0.05)
+    h2rt = uc.ufloat(21.2,0.05) - uc.ufloat(17.0,0.05)
+    h2r = h1r - (h1r.n - h2rt.n)
     #langsam
     h1l = uc.ufloat(26.2,0.05) - uc.ufloat(12.0,0.05)
-    h2l = uc.ufloat(20.7,0.05) - uc.ufloat(17.6,0.05)
+    h2lt = uc.ufloat(20.7,0.05) - uc.ufloat(17.6,0.05)
+    h2l = h1l - (h1l.n - h2lt.n)
     #unvollständig
     h1u = uc.ufloat(28.4,0.05) - uc.ufloat(9.7,0.05)
-    h2u = uc.ufloat(23.7,0.05) - uc.ufloat(14.7,0.05)
+    h2ut = uc.ufloat(23.7,0.05) - uc.ufloat(14.7,0.05)
+    h2u = h1u - (h1u.n - h2ut.n)
 
     kr = kappa(h1r,h2r)
     kl = kappa(h1l,h2l)
@@ -129,4 +132,4 @@ def aufgabe4():
 
     return;
 
-aufgabe4()
+aufgabe2()
