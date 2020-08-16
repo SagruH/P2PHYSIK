@@ -19,9 +19,9 @@ def aufgabe11():
     lambdaGelb = 590e-9
     lambdaBlau = 465e-9
     #n, r links in mm, r rechts in mm
-    #hlines, data = ppk.readCSV("11aufgabeG.csv",2)
-    hlines, data = ppk.readCSV("11aufgabeB.csv",2)
-    lambdaGelb = lambdaBlau
+    hlines, data = ppk.readCSV("11aufgabeG.csv",2)
+    #hlines, data = ppk.readCSV("11aufgabeB.csv",2)
+    #lambdaGelb = lambdaBlau
     '''
     for i in np.arange(len(data[2])):
         x = data[2][i]
@@ -36,19 +36,23 @@ def aufgabe11():
     R = (rsq)/(data[0]*lambdaGelb)
     R = uc.ufloat( np.mean(R), np.std(R) )
     lGk = data[0]*lambdaGelb
+    lGk = lGk * (10**9)
+    rsq = rsq * (10**9)
 
-    slp, inter, r_value, p_value, std_err = stats.linregress(lGk, rsq);
-    p = np.polyfit(lGk, rsq, 1)
-    pol = np.poly1d(p)
-    print(slp,std_err)
+    slp, inter, r_value, p_value, std_err = stats.linregress(lGk, rsq)
+    #p = np.polyfit(lGk, rsq, 1)
+    #pol = np.poly1d(p)
     R2 = uc.ufloat(slp, std_err)
     print(R2)
 
+
     plt.plot(lGk, rsq,  "or")
     plt.plot(lGk , lGk*slp + inter, "-b")
+    #plt.errorbar(lGk, rsq, yerr = 0.06)
     #plt.plot(lGk , pol(lGk), "-c")
-    plt.xlabel("lambda*n")
-    plt.ylabel("r^2")
+    plt.title("Aufgabe 1.1 Gelbe LED")
+    plt.xlabel("lambda*n in nm")
+    plt.ylabel("r^2 in nm^2")
     plt.grid(True)
     plt.show()
     return;
@@ -59,9 +63,20 @@ def aufgabe12():
     hlines, data = ppk.readCSV("12aufgabe.csv",2)
     rsq = ( ( (data[1]-data[2])/2 ) * (10**(-3)) )**2
     lGk = data[0]*lambdaGelb*R
+    lGk = lGk * (10**9)
+    rsq = rsq * (10**9)
 
     slp, inter, r_value, p_value, std_err = stats.linregress(lGk, rsq);
     R2 = uc.ufloat(1/slp, std_err)
+
+    plt.plot(lGk, rsq,  "or")
+    plt.plot(lGk , lGk*slp + inter, "-b")
+    plt.title("Aufgabe 1.2")
+    plt.xlabel("lambda*n in nm")
+    plt.ylabel("r^2 in nm^2")
+    plt.grid(True)
+    plt.show()
+
     print(R2)
     return;
 
@@ -70,4 +85,4 @@ def aufgabe134():
 
     return;
 
-aufgabe134()
+aufgabe12()
