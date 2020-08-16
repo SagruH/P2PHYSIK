@@ -29,24 +29,24 @@ n, r links in mm, r rechts in mm
 5, 12.3, 10.0
 
 Brennweite
-schirm 130 - linse 29.3 cm 
+schirm 130 - linse 29.3 cm
 
 Gitter (600)
 negativer Bereich
 n, grad, minuten
-2, 339, 10
-4, 314, 8
+1, 339, 10
+2, 314, 8
 
 postiver Bereich
-2, 20, 45
-4, 44, 47
+1, 20, 45
+2, 44, 47
 
 Aufgabe 2.3
 45, 20
 45, 23
 
 20, 55
-22, 54
+20, 54
 
 339, 13
 339, 10
@@ -65,7 +65,7 @@ positiver Bereich
 1, 5, 30
 2, 11, 8
 3, 16, 47
-(4,) 
+(4,)
 
 2.5, Zn-Lampe, bl1, bl2, gr, rot
 n, grad, minute

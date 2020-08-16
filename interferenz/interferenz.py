@@ -131,8 +131,84 @@ def aufgabe22():
 
     return;
 
+def aufgabe23():
+    g = uc.ufloat(1.658,0.006)
+    g = g * 1e-6
 
+    hlines, data = ppk.readCSV("232aufgabe.csv",2)
+    k = data[0]
+    deg = data[1]
+    min = [0,1,2,3,4]
+    for i in np.arange(len(data[2])):
+        x = data[2][i]
+        min[i]= uc.ufloat(x, 3)
+    min[2] = uc.ufloat(0,0)
+    min = np.array(min)
 
+    ddec = deg + (min * (1/60))
+    ddec[0] -= 360
+    ddec[1] -= 360
+    sindeg = [0,1,2,3,4]
+    sdoe = [0,1,2,3,4]
+    se = [0,1,2,3,4]
+    for i in np.arange(5):
+        x = ddec[i]
+        x = (x/180)*np.pi
+        sx = sin(x)
+        sindeg[i] = sx
+        sdoe[i] = sx.n
+        se[i] = sx.s
 
+    slp, inter, r_value, p_value, std_err = stats.linregress(k, sdoe);
+    m = uc.ufloat(slp,std_err)
+    lam = g*m
+    print("l ", lam)
 
-aufgabe22()
+    plt.plot(k, sdoe, "or")
+    plt.plot(k , k*slp + inter, "-b")
+    plt.xlabel("k")
+    plt.ylabel("sin(alpha)")
+    plt.grid(True)
+    plt.show()
+    return;
+
+def aufgabe24():
+    hlines, data = ppk.readCSV("24aufgabe.csv",2)
+    k = data[0]
+    deg = data[1]
+    min = [0,1,2,3,4,5,6]
+    for i in np.arange(len(data[2])):
+        x = data[2][i]
+        min[i]= uc.ufloat(x, 3)
+    min[2] = uc.ufloat(0,0)
+    lamNa = 589.3e-9 #m
+    min = np.array(min)
+
+    ddec = deg + (min * (1/60))
+    ddec[0] -= 360
+    ddec[1] -= 360
+    ddec[2] -= 360
+    sindeg = [0,1,2,3,4,5,6]
+    sdoe = [0,1,2,3,4,5,6]
+    se = [0,1,2,3,4,5,6]
+    for i in np.arange(7):
+        x = ddec[i]
+        x = (x/180)*np.pi
+        sx = sin(x)
+        sindeg[i] = sx
+        sdoe[i] = sx.n
+        se[i] = sx.s
+
+    slp, inter, r_value, p_value, std_err = stats.linregress(k, sdoe);
+    m = uc.ufloat(slp,std_err)
+    g = lamNa / m
+    print("g ", g)
+
+    plt.plot(k, sdoe, "or")
+    plt.plot(k , k*slp + inter, "-b")
+    plt.xlabel("k")
+    plt.ylabel("sin(alpha)")
+    plt.grid(True)
+    plt.show()
+    return;
+aufgabe24()
