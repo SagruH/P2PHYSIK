@@ -11,7 +11,7 @@ from scipy.interpolate import make_interp_spline, BSpline
 #from kafe.function_library import quadratic_3par
 
 import uncertainties as uc
-from uncertainties.umath import sqrt
+from uncertainties.umath import sqrt, sin
 
 
 def aufgabe11():
@@ -81,8 +81,58 @@ def aufgabe12():
     return;
 
 def aufgabe134():
+    xl = uc.ufloat(1.3,0.001)
+    xrt = uc.ufloat(0.293,0.001)
+    xr = xl - (xl.n - xrt.n)
+    f = xl - xr
+    R = uc.ufloat(0.571, 0.029)
+    n = R/f + 1
+    print("f  ", f, "\nn  " ,n)
+    return;
 
+
+def aufgabe22():
+    hlines, data = ppk.readCSV("22aufgabe.csv",2)
+    k = data[0]
+    deg = data[1]
+    min = [0,1,2,3,4]
+    for i in np.arange(len(data[2])):
+        x = data[2][i]
+        min[i]= uc.ufloat(x, 3)
+    min[2] = uc.ufloat(0,0)
+    lamNa = 589.3e-9 #m
+    min = np.array(min)
+
+    ddec = deg + (min * (1/60))
+    ddec[0] -= 360
+    ddec[1] -= 360
+    sindeg = [0,1,2,3,4]
+    sdoe = [0,1,2,3,4]
+    se = [0,1,2,3,4]
+    for i in np.arange(5):
+        x = ddec[i]
+        x = (x/180)*np.pi
+        sx = sin(x)
+        sindeg[i] = sx
+        sdoe[i] = sx.n
+        se[i] = sx.s
+
+    slp, inter, r_value, p_value, std_err = stats.linregress(k, sdoe);
+    m = uc.ufloat(slp,std_err)
+    g = lamNa / m
+    print("g ", g)
+
+    plt.plot(k, sdoe, "or")
+    plt.plot(k , k*slp + inter, "-b")
+    plt.xlabel("k")
+    plt.ylabel("sin(alpha)")
+    plt.grid(True)
+    plt.show()
 
     return;
 
-aufgabe12()
+
+
+
+
+aufgabe22()
