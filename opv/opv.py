@@ -25,4 +25,20 @@ def a14():
     plt.show()
     return;
 
-a14()
+
+def a23():
+    hlines, d = ppk.readCSV("daten23.csv",3)
+    v = d[1]/0.5
+
+    plt.plot(d[0], v, "xb")
+    plt.plot(d[0], v, "-b")
+    plt.legend()
+    plt.xscale("log")
+    plt.xlabel("f in Hz")
+    plt.ylabel("Verstärkungsfaktor")
+    plt.grid(True)
+    plt.show()
+    return;
+
+
+a23()
