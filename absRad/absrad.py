@@ -25,13 +25,45 @@ def plateuanstieg11():
     return;
 
 def nulleffekt12():
-    hlines, data = ppk.readCSV("Nullefekt.csv",2)
+    hlines, data = ppk.readCSV("Nulleffekt2.csv",2)
+    N = np.arange( len(data[1]) )
     for i in np.arange( len(data[1])-1 ):
-        data[1][i+1] = data[1][i+1] - data[1][i]
+        N[i+1] = data[1][i+1] - data[1][i]
 
-    print(data[1])
+    Nt = N/5
 
+    NUm = np.mean(Nt)
+    NUs = np.std(Nt)
+    print(NUm, NUs)
 
     return;
 
-nulleffekt12()
+def totzeit13():
+    T = 180
+    N12 = 18088
+    N1 = 10042
+    N2 = 7988
+
+    tau = (T/N12)*(1- np.sqrt(1- ( ((N1+N2-N12)/(N1*N2))*N12 ) ) )
+    print(tau)
+    return;
+
+def abstand():
+    hlines, data = ppk.readCSV("14aufgabe.csv",2)
+    d = data[0]
+    lN = np.log10(data[1])
+    rlN = lN[:15]
+    rd = d[:15]
+
+    slope, intercept, r_value, p_value, std_err = stats.linregress(rd, rlN)
+    print(slope)
+
+    plt.plot(d, lN, "xb")
+    plt.plot(rd, intercept + slope*rd, "-b")
+    plt.xlabel("log(d) in log(cm)")
+    plt.ylabel("log(N)")
+    plt.grid(True)
+    plt.show()
+    return;
+
+abstand()
