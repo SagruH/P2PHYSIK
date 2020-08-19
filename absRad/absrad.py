@@ -24,4 +24,14 @@ def plateuanstieg11():
     plt.show()
     return;
 
-plateuanstieg11()
+def nulleffekt12():
+    hlines, data = ppk.readCSV("Nullefekt.csv",2)
+    for i in np.arange( len(data[1])-1 ):
+        data[1][i+1] = data[1][i+1] - data[1][i]
+
+    print(data[1])
+
+
+    return;
+
+nulleffekt12()
