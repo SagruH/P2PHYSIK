@@ -146,9 +146,87 @@ def beta():
 def gamma():
     t = 200
     rho = 11530
-    hlines, data = ppk.readCSV("gammaCo.csv",2)
+    R0 = 0.224
+    tau = 0.001
+    hlines, dCo = ppk.readCSV("gammaCo.csv",2)
+    hlines, dCs = ppk.readCSV("gammaCs.csv",2)
+
+    dPb = dCo[0] /1000
+    RCouk = dCo[1]/t
+    RCsuk = dCs[1]/t
+    RCo = ( RCouk/(1-RCouk*tau) ) - R0
+    RCs = ( RCsuk/(1-RCsuk*tau) ) - R0
+
+    RCo = np.log(RCo)
+    RCs = np.log(RCs)
+
+    slp1, int1, r_value, p_value, std_err = stats.linregress(dPb, RCo)
+    slp2, int2, r_value, p_value, std_err = stats.linregress(dPb, RCs)
+
+    myCo = slp1
+    myCs = slp2
+
+    cCo = myCo/rho
+    cCs = myCs/rho
+
+    dhCo = np.log(2)/myCo
+    dhCs = np.log(2)/myCs
+
+    print("absorbkoeff my Co, Cs: ", myCo, myCs)
+    print("massenabsorbkoeff c Co, Cs: ", cCo, cCs)
+    print("halbwertsdicke blei Co, Cs: ", dhCo, dhCs)
+
+    plt.plot(dPb, RCo, "ob")
+    plt.plot(dPb, RCs, "or")
+    plt.plot(dPb, slp1*dPb+ int1, "-b")
+    plt.plot(dPb, slp2*dPb+ int2, "-r")
+    plt.xlabel("dicke Blei in m")
+    plt.ylabel("Korrigierte Zählrate (log)")
+    plt.grid(True)
+    plt.show()
+    return;
+
+def gamma_other():
+    '''
+    Holz 0.68 g/cm3
+    200 s, 1186
+    plexiglas 1.18 g/cm3
+    30s, 167
+    Trovidur 1.38
+    181
+    Beton 2.14
+    142
+    Alu 2.71
+    141
+    Fe 7.80
+    85
+    Messing 8.4
+    94
+    '''
+    mat = np.array(["Holz", "Plexiglas", "Trovidur", "Beton", "Alu", "Eisen", "Messing"])
+    rho = np.array([680,    1180,   1380,   2140,   2710,   7800,   8400])
+    t   = np.array([200,    30,     30,     30,     30,     30,     30])
+    N   = np.array([1186,   167,    181,    142,    141,    85,     94])
+    R0 = 0.224
+
+    R = N / t
+
+    p = (R0 - R) / R0
+    my = p/rho
+    print(mat)
+    print("Absroptionsfähigkeit p: ", p)
+    print("p pro dichte (p/rho): ", my)
+
+    for i in np.arange( len(N) ):
+        plt.plot(rho[i], R[i], "x", label = mat[i])
+
+
+    plt.xlabel("Dichte in kg/m3")
+    plt.ylabel("Zählrate")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
     return;
 
-
-beta()
+gamma_other()
