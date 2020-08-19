@@ -14,9 +14,9 @@ def a14():
     vmk = dmK[2]/dmK[1]
 
     plt.plot(doK[0], vok, "xb", label = "Ohne Kondensator")
-    plt.plot(doK[0], vok, "-b")
+    #plt.plot(doK[0], vok, "-b")
     plt.plot(dmK[0], vmk, "xr", label = "Mit Kondensator")
-    plt.plot(dmK[0], vmk, "-r")
+    #plt.plot(dmK[0], vmk, "-r")
     plt.legend()
     plt.xscale("log")
     plt.xlabel("f in Hz")
@@ -31,7 +31,7 @@ def a23():
     v = d[1]/0.5
 
     plt.plot(d[0], v, "xb")
-    plt.plot(d[0], v, "-b")
+    #plt.plot(d[0], v, "-b")
     plt.legend()
     plt.xscale("log")
     plt.xlabel("f in Hz")
@@ -40,5 +40,5 @@ def a23():
     plt.show()
     return;
 
-
+a14()
 a23()
