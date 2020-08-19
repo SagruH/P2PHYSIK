@@ -118,6 +118,10 @@ def beta():
     cSr = mySr / rho
     cY = myY / rho
 
+    rho = rho / 1000
+    RSr = RSr * 100
+    RY = RY * 100
+
     WSr = 1.92*np.sqrt((RSr**2 * rho**2) + (0.22*RSr*rho) )
     WY = 1.92*np.sqrt((RY**2 * rho**2) + (0.22*RY*rho) )
 
@@ -137,10 +141,14 @@ def beta():
     plt.ylabel("Korrigierte Zählrate")
     plt.grid(True)
     #plt.show()
-
     return;
 
+def gamma():
+    t = 200
+    rho = 11530
+    hlines, data = ppk.readCSV("gammaCo.csv",2)
 
+    return;
 
 
 beta()
