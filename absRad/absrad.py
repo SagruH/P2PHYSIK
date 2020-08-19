@@ -60,10 +60,87 @@ def abstand():
 
     plt.plot(d, lN, "xb")
     plt.plot(rd, intercept + slope*rd, "-b")
-    plt.xlabel("log(d) in log(cm)")
+    plt.xlabel("d in cm")
     plt.ylabel("log(N)")
     plt.grid(True)
     plt.show()
     return;
 
-abstand()
+def alpha():
+    hlines, data = ppk.readCSV("alpha.csv",1)
+    d = data[0] + 2 + 7 + 1
+    Ruk = data[1]/200
+    R0 = 0.224
+    tau = 0.001
+    r = 0.0045
+
+    Rost = ( Ruk/(1-Ruk*tau) ) - R0
+    R = Rost*( (4*(d**2))/(r**2) )
+
+    plt.plot(d, Rost, "xb")
+    plt.xlabel("d in mm")
+    plt.ylabel("Korrigierte Zählrate")
+    plt.grid(True)
+    plt.show()
+    plt.clf()
+
+    plt.plot(d, R, "xb")
+    plt.xlabel("d in mm")
+    plt.ylabel("Korrigierte Zählrate")
+    plt.grid(True)
+    plt.show()
+    return;
+
+def beta():
+    hlines, data = ppk.readCSV("beta.csv",1)
+    d = data[0]*1e-6
+    R0 = 0.224
+    tau = 0.001
+    rho = 2.71 *1000
+
+    Ruk = data[1]/data[2]
+    R = ( Ruk/(1-Ruk*tau) ) - R0
+    R = np.log(R)
+
+    slp1, int1, r_value, p_value, std_err = stats.linregress(d[:7], R[:7])
+    slp2, int2, r_value, p_value, std_err = stats.linregress(d[7:16], R[7:16])
+    polc1 = np.array([slp1,int1])
+    polc2 = np.array([slp2,int2])
+    polcR0 = np.array([0,R0])
+
+    RY = np.roots(polc2-polcR0)
+    RSr = np.roots(polc1-polc2)
+
+    mySrY = slp1
+    mySr = slp1 -slp2
+    myY = slp2
+
+    cSr = mySr / rho
+    cY = myY / rho
+
+    WSr = 1.92*np.sqrt((RSr**2 * rho**2) + (0.22*RSr*rho) )
+    WY = 1.92*np.sqrt((RY**2 * rho**2) + (0.22*RY*rho) )
+
+    cSr2 = 17*WSr**(-1.43)
+    cY2 = 17*WY**(-1.43)
+
+    print("Reichweite Sr, Y: ", RSr, RY)
+    print("absorptions my Sr+Y, Sr, Y: ", mySrY, mySr, myY)
+    print("massenabsorb c Sr, Y: " , cSr, cY)
+    print("Flammersfeld W Sr, Y: ", WSr, WY)
+    print("letztes c Sr, Y: ", cSr2, cY2)
+
+    plt.plot(d[:-2], R[:-2], "xb")
+    plt.plot(d[:7], slp1*d[:7]+int1, "-g")
+    plt.plot(d[7:16], slp2*d[7:16]+int2, "-r")
+    plt.xlabel("d in micrometer")
+    plt.ylabel("Korrigierte Zählrate")
+    plt.grid(True)
+    #plt.show()
+
+    return;
+
+
+
+
+beta()
