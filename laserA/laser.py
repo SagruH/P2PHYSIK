@@ -69,8 +69,33 @@ def aufgabe2():
     print("Haar: Max, Min, Mean: ", dhaarMax, dhaarMin, dhaar)
     return;
 
-def aufgabe3():
+def aufgabe31():
+    eSpdMax = np.array([-40, -35, -28, -22, -18, -12, -4, 6, 12, 18, 24, 29, 35])
+    eSpdMax = eSpdMax + 4
+    eSpdMin = np.array([-38, -32, -27, -21, -15, -9, -4, 4, 10, 15, 21, 26, 32])
+    eSpdMin = eSpdMin + 4
+    eSpdn = 6
+
+    dSpMin = np.array([-23, -18, -12, -6, 0, 7, 13, 18, 25])
+    dSpn = 4
+    d = np.mean( dcalc(dSpMin, dSpn, 1) ) #1 weil dpplSpalt
+
+    bMax = np.mean(dcalc(eSpdMax, eSpdn, 1))
+    bMin = np.mean(dcalc(eSpdMin, eSpdn, 0))
+    b = np.mean( [bMax, bMin] )
+    print("Spaltbreite b: Max, Min, mean: ", bMax, bMin, b)
+    print("Spaltabstand d: ", d)
 
     return;
 
-aufgabe3()
+def aufgabe32():
+    gitterV = np.array([-41, -27, -15, 0, 12, 26, 39])
+    gitn = 3
+
+    g = np.mean( (dcalc(gitterV, gitn, 0) ) )
+
+    print("Gitterkonstante g: ", 1/g, g)
+
+    return;
+
+aufgabe32()
