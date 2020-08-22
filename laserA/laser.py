@@ -23,7 +23,16 @@ def dcalc(y, n, max):
 
 
 def aufgabe1():
-
+    offset = 1.5
+    trans = 56
+    reflek =  57
+    trans = (trans - offset) * (np.pi/180)
+    reflek = (reflek - offset) * (np.pi/180)
+    n1 = 1
+    n2t = n1*np.tan(trans)
+    n2r = n1*np.tan(reflek)
+    n2 = np.mean( [n2t,n2r] )
+    print("n2 aus Brewsterwinkel: aus reflektion, aus transmission, mittelwert: ", n2t, n2r, n2)
     return;
 
 def aufgabe2():
@@ -60,4 +69,8 @@ def aufgabe2():
     print("Haar: Max, Min, Mean: ", dhaarMax, dhaarMin, dhaar)
     return;
 
-aufgabe1()
+def aufgabe3():
+
+    return;
+
+aufgabe3()
